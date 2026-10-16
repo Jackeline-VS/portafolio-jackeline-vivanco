@@ -96,7 +96,7 @@ addEventListener('resize', updateActiveLink);
 updateActiveLink();
 
 // Aparición al desplazarse: cada bloque se muestra al entrar en pantalla
-const revealItems = document.querySelectorAll('.hero-copy > *, .portrait, .section-head, .about-grid, .design-values > div, .skills, .project, .notebook-intro, .week, .notebook-footer, .reflection > *, .sources > *, .contact > *');
+const revealItems = document.querySelectorAll('.hero-copy > *, .portrait,.section-head, .welcome-card, .about-intro, .skills, .project, .notebook-intro, .week, .notebook-footer, .reflection > *, .sources > *, .contact > *');
 if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
   document.documentElement.classList.add('reveal-on');
   const observer = new IntersectionObserver(entries => entries.forEach(entry => {
@@ -108,7 +108,7 @@ if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: re
     setTimeout(() => el.classList.remove('reveal', 'visible'), 900 + (parseFloat(el.style.transitionDelay) || 0) * 1000);
   }), { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   revealItems.forEach(el => {
-    const siblings = [...el.parentElement.children].filter(child => child.matches('.hero-copy > *, .design-values > div, .project, .week, .sources > *'));
+    const siblings = [...el.parentElement.children].filter(child => child.matches('.hero-copy > *, .welcome-card, .project, .week, .sources > *'));
     const order = siblings.indexOf(el);
     if (order > 0) el.style.transitionDelay = Math.min(order % 3, 2) * 0.12 + (el.closest('.hero-copy') ? order * 0.06 : 0) + 's';
     el.classList.add('reveal');

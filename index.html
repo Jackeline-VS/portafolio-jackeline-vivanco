@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
@@ -25,19 +25,21 @@
       >
       <nav aria-label="Navegación principal">
         <a href="#inicio" class="nav-home">Inicio</a><a href="#sobre-mi">Sobre mí</a><a href="#proyectos">Proyectos</a
-        ><a href="#cuaderno">Cuaderno</a><a href="#contacto">Contacto</a>
+        ><a href="#cuaderno">Cuaderno</a>
       </nav>
-      <button id="theme" aria-label="Cambiar a modo claro">☀</button>
+      <div class="header-actions">
+        <button id="theme" aria-label="Cambiar a modo claro">☀</button>
+        <a class="header-cta" href="#contacto">Contacto</a>
+      </div>
     </header>
     <main id="main">
       <section class="hero wrap" id="inicio">
         <div class="hero-copy">
-          <p class="eyebrow">
-            <span class="dot"></span> PORTAFOLIO ACADÉMICO · 2026-II
+          <p class="hero-badge">
+            <span class="dot"></span> Frontend & Diseño · Portafolio 2026-II
           </p>
-          <p class="hero-name">Jackeline Vivanco Solano</p>
-          <h1>Diseñar con intención.<br /><em>Crear con código.</em></h1>
-          <p class="role">Frontend & diseño de interfaces</p>
+          <h1 class="hero-title">Jackeline<br /><span>Vivanco Solano</span></h1>
+          <p class="hero-tagline">Diseñar con intención. Crear con código.</p>
           <p class="intro">
             Me interesa transformar ideas en experiencias web claras, atractivas
             y fáciles de usar. Soy estudiante de Ingeniería de Sistemas y estoy
@@ -56,18 +58,8 @@
             <div><strong>05</strong><span>Proyectos</span></div>
           </div>
           <div class="actions">
-            <a class="primary" href="#proyectos"
-              >Explorar proyectos <span>↗</span></a
-            ><a class="secondary" href="#cuaderno"
-              >Mi cuaderno de aprendizaje →</a
-            >
-          </div>
-          <div class="hero-info">
-            <span>UNCP · Ingeniería de Sistemas</span><span>IX semestre</span>
-          </div>
-          <div class="hero-note">
-            <span>01 — EXPLORA MI TRABAJO</span
-            ><a href="#proyectos" aria-label="Ir a proyectos">↓</a>
+            <a class="primary" href="#proyectos">Ver proyectos</a
+            ><a class="btn-outline" href="#cuaderno">Mi cuaderno</a>
           </div>
         </div>
         <div class="portrait">
@@ -95,9 +87,59 @@
       <section class="wrap section" id="sobre-mi">
         <div class="section-head">
           <p class="eyebrow">01 / SOBRE MÍ</p>
-          <h2>La tecnología empieza<br />por las <em>personas.</em></h2>
+          <h2>Hola, soy <em>Jackeline</em></h2>
         </div>
-        <div class="about-grid">
+        <div class="welcome-grid">
+          <article class="welcome-card">
+            <p class="card-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 16-4-4 4-4M16 8l4 4-4 4M14 4l-4 16"/></svg>
+              FRONTEND
+            </p>
+            <h3>Interfaces claras y responsivas <span class="level">En formación</span></h3>
+            <p>
+              Organizar la información, cuidar la composición visual y crear una
+              navegación intuitiva. Del diseño al código.
+            </p>
+            <div class="stack-boxes">
+              <div class="active"><b>Frontend</b><span>HTML · CSS · JavaScript · React</span></div>
+              <div><b>Herramientas</b><span>Vite · Git · VS Code</span></div>
+            </div>
+          </article>
+          <article class="welcome-card">
+            <p class="card-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>
+              FORMACIÓN
+            </p>
+            <h3 class="accent">Ingeniería de Sistemas · IX semestre</h3>
+            <p>
+              Universidad Nacional del Centro del Perú · 2026-II.<br />Curso
+              IS093A Desarrollo de Aplicaciones Web · Dr. Jaime Suasnábar Terrel ·
+              Mg. Miguel Aguilar Coronación.
+            </p>
+            <div class="progress-labels" aria-hidden="true">
+              <span>I</span><span>III</span><span>V</span><span>VII</span><b>IX</b><span>X</span>
+            </div>
+            <div class="progress" role="img" aria-label="Avance de la carrera: IX de X semestres"><i></i></div>
+          </article>
+          <article class="welcome-card">
+            <p class="card-label">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4Z"/></svg>
+              EXPERIENCIA
+            </p>
+            <h3>Facilitadora · SAF</h3>
+            <p>
+              Programa Nacional Cuna Más · Unidad Territorial Junín. Busco
+              claridad, sensibilidad visual y propósito en cada interfaz.
+            </p>
+            <div class="chips">
+              <span title="Información organizada para una navegación intuitiva">Claridad</span
+              ><span title="Color, tipografía y espacios que trabajan juntos">Sensibilidad visual</span
+              ><span title="Interfaces pensadas para las personas que las usan">Propósito</span
+              ><span>Aprendizaje continuo</span>
+            </div>
+          </article>
+        </div>
+        <div class="about-intro">
           <div>
             <p class="lead">
               Me atrae el punto donde el diseño y el código se encuentran.
@@ -119,40 +161,10 @@
               ><span>Aprendizaje continuo</span>
             </div>
           </div>
-          <aside class="education">
-            <p class="eyebrow">FORMACIÓN & EXPERIENCIA</p>
-            <h3>Ingeniería de Sistemas</h3>
-            <p>
-              Universidad Nacional del Centro del Perú<br />IX semestre ·
-              2026-II
-            </p>
-            <hr />
-            <h3>Facilitadora · SAF</h3>
-            <p>Programa Nacional Cuna Más<br />Unidad Territorial Junín</p>
-            <hr />
-            <span class="small">Curso IS093A</span>
-            <p>
-              Desarrollo de Aplicaciones Web<br />Dr. Jaime Suasnábar Terrel<br />Mg.
-              Miguel Aguilar Coronación
-            </p>
-          </aside>
-        </div>
-        <div class="design-values">
-          <div>
-            <span>01</span>
-            <h3>Claridad</h3>
-            <p>Información organizada para una navegación intuitiva.</p>
-          </div>
-          <div>
-            <span>02</span>
-            <h3>Sensibilidad visual</h3>
-            <p>Color, tipografía y espacios que trabajan juntos.</p>
-          </div>
-          <div>
-            <span>03</span>
-            <h3>Propósito</h3>
-            <p>Interfaces pensadas para las personas que las usan.</p>
-          </div>
+          <blockquote class="quote-card">
+            <p>La tecnología empieza<br />por las personas.</p>
+            <cite>— Jackeline Vivanco</cite>
+          </blockquote>
         </div>
         <div class="skills">
           <span class="eyebrow">HERRAMIENTAS EN MI FORMACIÓN</span>
