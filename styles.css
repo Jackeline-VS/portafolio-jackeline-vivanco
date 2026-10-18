@@ -292,3 +292,57 @@ header nav{margin-inline:auto}
 .w1-keys p{margin:0;font-size:12.5px!important}
 @media(max-width:700px){.w1-methods{grid-template-columns:repeat(2,minmax(0,1fr))}.w1-steps{grid-template-columns:1fr 1fr}.w1-status{grid-template-columns:1fr}.w1-layers>div{grid-template-columns:34px 1fr}.w1-layers code{grid-column:2;text-align:left}.w1-stack>div{width:100%!important}}
 @media(max-width:430px){.w1-steps,.w1-methods{grid-template-columns:1fr}}
+
+/* Semana 5: paneles de diagrama con nodos de color */
+.n-blue{--n:#60a5fa}.n-amber{--n:#fbbf24}.n-green{--n:#4ade80}.n-red{--n:#f87171}.n-purple{--n:#c084fc}.n-ink{--n:var(--ink)}
+.diagram{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:20px;margin:16px 0 8px}
+.diagram .diagram-label{margin:0 0 16px!important;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.node-flow{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;margin:8px 0 16px}
+.node-flow span{flex:1;min-width:120px;border:1.5px solid var(--n,var(--line));border-radius:8px;padding:10px;text-align:center;font-size:11.5px;color:var(--muted);background:var(--panel)}
+.node-flow b{display:block;color:var(--ink);font-size:13px}
+.node-flow i{font-style:normal;align-self:center;color:var(--muted)}
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pros-cons>div{border:1.5px solid var(--n);border-radius:10px;padding:14px 16px;background:var(--panel)}
+.pros{--n:#4ade80}.cons{--n:#f59e0b}
+.pros-cons b{font-size:13px;color:var(--ink)}
+.pros-cons ul{list-style:none;padding:0;margin:8px 0 0}
+.pros-cons li{font-size:12.5px!important;margin:4px 0!important}
+.pros li::before{content:'+ ';color:#4ade80;font-weight:700}
+.cons li::before{content:'− ';color:#f59e0b;font-weight:700}
+.tool-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tool-grid>div,.style-cards>div,.code-pair>div{border:1.5px solid var(--n,var(--line));border-radius:10px;padding:14px;background:var(--panel);min-width:0}
+.tool-grid code{font-weight:700;font-size:12.5px!important}
+.tool-grid p{margin:6px 0 0;font-size:12.5px!important;line-height:1.6}
+.tree{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.tree span{display:inline-block;font-family:var(--mono);font-size:12px;border:1.5px solid var(--n,var(--line));border-radius:7px;padding:6px 12px;background:var(--panel);color:var(--ink)}
+.tree i{font-style:normal;color:var(--muted)}
+.t-row{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.tree small{font-size:11px;color:var(--muted);margin-top:6px}
+.code-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.code-pair b,.style-cards b{display:block;font-size:12.5px;color:var(--ink);margin-bottom:8px}
+.code-pair pre,.style-cards pre{margin:0;white-space:pre!important;overflow-x:auto;font-size:11.5px!important}
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rules>div{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--panel)}
+.rules b{display:block;font-size:12.5px;color:var(--ink);margin-bottom:6px}
+.ok,.no{display:block;font-family:var(--mono);font-size:11.5px}
+.ok{color:#22c55e}.no{color:#ef4444}
+.key-rule{border:1.5px solid var(--gold);border-radius:10px;padding:14px 16px;background:var(--panel)}
+.key-rule b{color:var(--gold);font-size:13px}
+.key-rule p{margin:6px 0 0;font-size:12.5px!important}
+.style-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.style-cards .ok,.style-cards .no{font-family:var(--sans);font-size:12px;margin-bottom:3px}
+.style-cards pre{margin-top:10px}
+@media(max-width:650px){.pros-cons,.tool-grid,.code-pair,.rules{grid-template-columns:1fr}.node-flow i{display:none}}
+
+/* Semana 6: listas de eventos, rutas y bloques de código de ancho completo */
+.mono-list{list-style:none;padding:0;margin:8px 0 0;font-family:var(--mono);font-size:12px}
+.mono-list li{margin:3px 0!important;font-size:12px!important;color:var(--muted)}
+.code-pair.one{grid-template-columns:1fr;margin-top:12px}
+.code-pair p{margin:8px 0 0;font-size:11.5px!important}
+.routes{display:grid;gap:8px}
+.routes>div{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-items:center;border:1px solid var(--line);border-radius:8px;padding:10px 14px;background:var(--panel)}
+.routes code{font-weight:700}
+.routes span{font-family:var(--mono);font-size:12px;color:#c084fc}
+.routes small{font-size:12px;color:var(--muted)}
+html[data-theme=light] .routes span{color:#7e22ce}
+@media(max-width:560px){.routes>div{grid-template-columns:1fr 1fr}.routes small{grid-column:1/-1}}

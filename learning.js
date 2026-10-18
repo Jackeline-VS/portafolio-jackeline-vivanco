@@ -95,6 +95,150 @@ weeks[4].theory = `<div class="w5-theory">
 weeks[4].reflectionConfirmed = true;
 weeks[4].reflectionHtml = `<h3>¿Qué aprendí?</h3><p>Esta semana comprendí el cambio de paradigma que supone trabajar con un framework. Pasar de HTML estático a construir interfaces como árboles de componentes cambia completamente la forma de pensar el diseño. Props y children me resultaron intuitivos una vez que los practiqué. La idea de que los datos solo fluyen hacia abajo simplifica mucho el razonamiento sobre el código.</p><h3>¿Cómo lo aprendí?</h3><p>El laboratorio de pasar datos con props y children fue muy claro. Ver cómo el componente padre controla la información y el hijo solo la muestra me dejó bien grabado el concepto de flujo unidireccional.</p>`;
 
+// Semana 6: Eventos, condicionales, bucles y APIs.
+weeks[5].theory = `<div class="w6-theory">
+<section class="lesson-block"><h3>Eventos en React</h3><p>React usa eventos sintéticos: envoltorios sobre los eventos nativos del navegador, normalizados para funcionar igual en todos los navegadores. Los manejadores se pasan como funciones a las props de los elementos.</p>
+<div class="diagram"><p class="diagram-label">Diagrama · Eventos en React</p>
+<div class="tool-grid">
+<div class="n-blue"><code>Mouse</code><ul class="mono-list"><li>onClick</li><li>onDoubleClick</li><li>onMouseEnter</li><li>onMouseLeave</li><li>onMouseMove</li></ul></div>
+<div class="n-purple"><code>Teclado</code><ul class="mono-list"><li>onKeyDown</li><li>onKeyUp</li></ul><p>onKeyPress está deprecado; se usan onKeyDown u onKeyUp.</p></div>
+<div class="n-green"><code>Formulario</code><ul class="mono-list"><li>onChange</li><li>onSubmit</li><li>onFocus</li><li>onBlur</li><li>onInput</li></ul></div>
+<div class="n-amber"><code>Otros</code><ul class="mono-list"><li>onScroll</li><li>onLoad</li><li>onError</li><li>onDragStart</li><li>onDrop</li></ul></div>
+</div>
+<div class="code-pair one"><div><b>Ejemplo</b><pre><code>function Boton() {
+  function handleClick(e) {
+    e.preventDefault()    // cancela la acción predeterminada
+    console.log(e.target) // elemento que disparó el evento
+  }
+  return &lt;button onClick={handleClick}&gt;Clic aquí&lt;/button&gt;
+}</code></pre></div></div>
+<p class="small">preventDefault cancela la acción predeterminada y stopPropagation detiene la propagación del evento.</p>
+</div></section>
+
+<section class="lesson-block"><h3>Renderizado condicional</h3><p>React no tiene directivas como <code>v-if</code>. La condición se expresa directamente en JSX usando patrones de JavaScript.</p>
+<div class="diagram"><p class="diagram-label">Diagrama · Renderizado condicional</p>
+<div class="code-pair">
+<div class="n-blue"><b>if / return</b><pre><code>if (!user) return &lt;Login /&gt;
+return &lt;Dashboard user={user} /&gt;</code></pre></div>
+<div class="n-ink"><b>Operador &amp;&amp;</b><pre><code>{isLoading &amp;&amp; &lt;Spinner /&gt;}
+{error &amp;&amp; &lt;ErrorMsg error={error} /&gt;}</code></pre></div>
+<div class="n-purple"><b>Ternario ? :</b><pre><code>{isLogged
+  ? &lt;Avatar user={user} /&gt;
+  : &lt;LoginBtn /&gt;}</code></pre></div>
+<div class="n-amber"><b>Variable JSX</b><pre><code>let content
+if (status === "ok") content = &lt;Success /&gt;
+else content = &lt;Error /&gt;
+return &lt;div&gt;{content}&lt;/div&gt;</code></pre></div>
+</div>
+<div class="key-rule"><b>Cuidado con &amp;&amp;</b><p>Conviene usar una condición booleana: si el operando izquierdo es el número 0, React lo muestra en pantalla. Por ejemplo, usar <code>lista.length &gt; 0 &amp;&amp;</code> en lugar de <code>lista.length &amp;&amp;</code>.</p></div>
+</div></section>
+
+<section class="lesson-block"><h3>Renderizado iterativo</h3><p>Para mostrar listas se usa <code>.map()</code> sobre un array. Cada elemento debe tener una <code>key</code> única y estable.</p>
+<div class="diagram"><p class="diagram-label">Diagrama · Renderizado iterativo con .map()</p>
+<div class="code-pair">
+<div class="n-green"><b>Correcto — con key única</b><pre><code>{users.map(user =&gt; (
+  &lt;Card
+    key={user.id}
+    name={user.name}
+  /&gt;
+))}</code></pre></div>
+<div class="n-red"><b>Incorrecto — key con índice</b><pre><code>{users.map((user, i) =&gt; (
+  &lt;Card
+    key={i}  // se rompe al reordenar
+    name={user.name}
+  /&gt;
+))}</code></pre></div>
+</div>
+<div class="key-rule"><b>¿Por qué importa la key?</b><p>React usa la key para reconocer cada elemento entre renderizados. Si se agregan, eliminan o reordenan elementos, una key inestable como el índice puede mezclar el estado y causar errores visuales. El índice solo es aceptable en listas que nunca cambian.</p></div>
+</div></section>
+
+<section class="lesson-block"><h3>Formularios</h3><p>Los formularios en React pueden ser <strong>controlados</strong> (el estado vive en React) o <strong>no controlados</strong> (el DOM maneja el valor).</p>
+<div class="diagram"><p class="diagram-label">Diagrama · Formularios controlados vs no controlados</p>
+<div class="code-pair">
+<div class="n-ink"><b>Controlado — estado en React</b><pre><code>const [email, setEmail] = useState("")
+
+&lt;input
+  value={email}
+  onChange={(e) =&gt; setEmail(e.target.value)}
+/&gt;</code></pre><p>Útil cuando otras partes de la interfaz dependen del valor.</p></div>
+<div><b>No controlado — ref al DOM</b><pre><code>const emailRef = useRef(null)
+
+&lt;input ref={emailRef} /&gt;
+
+// Al enviar:
+emailRef.current.value</code></pre><p>Útil cuando basta con leer los datos al enviar.</p></div>
+</div></div></section>
+
+<section class="lesson-block"><h3>Routing — React Router</h3><p>React Router permite crear SPAs con múltiples vistas sin recargar la página. Relaciona cada URL con el componente que debe mostrarse.</p>
+<div class="diagram"><p class="diagram-label">Diagrama · React Router — Rutas</p>
+<div class="routes">
+<div><code>/</code><span>&lt;Home /&gt;</span><small>Ruta raíz</small></div>
+<div><code>/about</code><span>&lt;About /&gt;</span><small>Ruta estática</small></div>
+<div><code>/user/:id</code><span>&lt;UserProfile /&gt;</span><small>Parámetro dinámico</small></div>
+<div><code>/blog/*</code><span>&lt;Blog /&gt;</span><small>Rutas anidadas</small></div>
+<div><code>*</code><span>&lt;NotFound /&gt;</span><small>Página 404</small></div>
+</div>
+<div class="code-pair one"><div class="n-blue"><b>Configuración</b><pre><code>&lt;BrowserRouter&gt;
+  &lt;Routes&gt;
+    &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+    &lt;Route path="/user/:id" element={&lt;UserProfile /&gt;} /&gt;
+    &lt;Route path="*" element={&lt;NotFound /&gt;} /&gt;
+  &lt;/Routes&gt;
+&lt;/BrowserRouter&gt;</code></pre></div></div>
+</div></section>
+
+<section class="lesson-block"><h3>Promesas y async/await</h3><p>Una promesa representa un valor que llegará en el futuro. async/await permite escribir código asíncrono de forma secuencial sin bloquear el navegador; try/catch gestiona los errores.</p>
+<div class="diagram"><p class="diagram-label">Diagrama · Estados de una promesa</p>
+<div class="node-flow"><span class="n-amber"><b>pending</b>en espera</span><i>→</i><span class="n-green"><b>fulfilled</b>resuelta con datos</span><i>/</i><span class="n-red"><b>rejected</b>rechazada con error</span></div>
+<div class="code-pair one"><div><b>Ejemplo con fetch</b><pre><code>async function obtenerTareas() {
+  const respuesta = await fetch(
+    "https://jsonplaceholder.typicode.com/todos"
+  )
+  if (!respuesta.ok) {
+    throw new Error("No se pudieron obtener las tareas")
+  }
+  return respuesta.json()
+}</code></pre></div></div>
+<p class="small">Con fetch, una respuesta 404 o 500 no rechaza la promesa automáticamente: se comprueba respuesta.ok.</p>
+</div></section>
+
+<section class="lesson-block"><h3>Fetch y Axios</h3>
+<div class="diagram"><p class="diagram-label">Diagrama · Fetch vs Axios</p>
+<div class="theory-table"><table><thead><tr><th>Característica</th><th>Fetch</th><th>Axios</th></tr></thead><tbody>
+<tr><td>Disponibilidad</td><td>API nativa del navegador.</td><td>Dependencia que se instala.</td></tr>
+<tr><td>JSON</td><td>Se procesa con response.json().</td><td>Se procesa automáticamente.</td></tr>
+<tr><td>Errores HTTP</td><td>Requiere comprobar ok o status.</td><td>Rechaza los estados fuera de 2xx.</td></tr>
+<tr><td>Interceptores</td><td>No los incluye.</td><td>Interceptores de solicitud y respuesta.</td></tr>
+<tr><td>Cancelación</td><td>AbortController.</td><td>AbortController (CancelToken está deprecado).</td></tr>
+</tbody></table></div></div></section>
+
+<section class="lesson-block"><h3>Consumir una API con estados</h3><p>La interfaz debe comunicar qué está pasando en cada momento, no solo mostrar los datos cuando todo sale bien.</p>
+<div class="diagram"><p class="diagram-label">Diagrama · Ciclo de una petición en la interfaz</p>
+<div class="node-flow"><span class="n-blue"><b>Evento</b>montaje o clic</span><i>→</i><span class="n-amber"><b>Cargando</b>muestra spinner</span><i>→</i><span class="n-red"><b>Error</b>mensaje claro</span><i>/</i><span class="n-green"><b>Datos</b>renderiza la lista</span></div>
+<div class="code-pair one"><div><b>useEffect con limpieza</b><pre><code>useEffect(() =&gt; {
+  const controlador = new AbortController()
+  setCargando(true)
+
+  axios.get("https://jsonplaceholder.typicode.com/todos", {
+    signal: controlador.signal
+  })
+    .then((res) =&gt; setTareas(res.data))
+    .catch((err) =&gt; {
+      if (!controlador.signal.aborted) setError(err.message)
+    })
+    .finally(() =&gt; setCargando(false))
+
+  return () =&gt; controlador.abort()
+}, [])</code></pre></div></div>
+<p class="small">JSONPlaceholder proporciona datos de prueba, no registros reales.</p>
+</div></section>
+
+<section class="lesson-block"><h3>Fuentes de consulta</h3><div class="lesson-sources"><a target="_blank" rel="noopener" href="https://es.react.dev/learn/responding-to-events">React · Eventos ↗</a><a target="_blank" rel="noopener" href="https://es.react.dev/learn/rendering-lists">React · Listas ↗</a><a target="_blank" rel="noopener" href="https://reactrouter.com/start/declarative/routing">React Router · Rutas ↗</a><a target="_blank" rel="noopener" href="https://axios-http.com/docs/cancellation">Axios · Cancelación ↗</a><a target="_blank" rel="noopener" href="https://developer.mozilla.org/es/docs/Web/API/Fetch_API/Using_Fetch">MDN · Fetch ↗</a></div></section>
+</div>`;
+
+weeks[5].reflectionConfirmed = true;
+weeks[5].reflectionHtml = `<h3>¿Qué aprendí?</h3><p>Esta semana conecté el frontend con datos reales. Entender el ciclo completo (disparar un evento, hacer la petición, esperar la respuesta y renderizar los datos) me dio una visión mucho más completa de cómo funciona una aplicación web en la práctica.</p><h3>¿Cómo lo aprendí?</h3><p>El laboratorio de consumir una API con renderizado condicional e iterativo fue muy completo. Tener que manejar los tres estados (cargando, error y datos listos) me enseñó a pensar en los casos borde, no solo en el camino feliz.</p>`;
+
 // Semana 1: Fundamentos de Tecnologías Web.
 weeks[0].theory = `<div class="w1-theory">
 <section class="lesson-block"><h3>Soluciones web</h3>
