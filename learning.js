@@ -9,6 +9,92 @@ lessonUpdates.forEach(item => {
 weeks[0].labHtml = `<h3>Práctica Semana 01 · Mi primera página de presentación</h3><p>Elaboré una página personal con mi nombre, fotografía, formación en Ingeniería de Sistemas e interés por el frontend. La página reúne enlaces a GitHub, LinkedIn y correo, y se visualizó en el navegador mediante Live Server.</p><h3>Desarrollo de la actividad</h3><ol><li>Organicé el contenido de mi presentación en HTML y trabajé el diseño de la página.</li><li>Utilicé Visual Studio Code y previsualicé el resultado con Live Server.</li><li>Vinculé el trabajo con mi repositorio de GitHub.</li><li>Documenté el resultado y respondí una pregunta sobre la diferencia entre sitio web y aplicación web.</li></ol><h3>Resultado y evidencia</h3><p>La práctica documenta una tarjeta de presentación con fotografía, descripción personal y enlaces. El informe incluye el repositorio y una captura de la página funcionando en el navegador.</p><div class="actions"><a class="primary" href="assets/Practica01_JackelineVivanco.pdf" target="_blank" rel="noopener">Abrir informe PDF ↗</a><a class="lesson-repo" href="assets/Practica01_JackelineVivanco.pdf" download>Descargar informe</a><a class="lesson-repo" href="https://github.com/Jackeline-VS/portafolio-web-uncp" target="_blank" rel="noopener">Ver repositorio ↗</a></div><figure class="practice-evidence"><a href="assets/practica01-preview.png" target="_blank" rel="noopener"><img src="assets/practica01-preview.png" alt="Primera página del informe de Jackeline: datos de la práctica y captura de su página personal" loading="lazy"></a><figcaption>Evidencia del informe original · Semana 1. Pulsa la imagen para ampliarla.</figcaption></figure><h3>Respuesta conceptual</h3><p>Un sitio web suele reunir páginas orientadas a presentar información. Una aplicación web permite realizar tareas mediante interacción y procesamiento de datos. Ambos conceptos pueden coincidir: un sitio puede incorporar funciones de aplicación.</p>`;
 weeks[0].reflectionConfirmed = true;
 
+// Semana 5: Framework JS — React.
+weeks[4].theory = `<div class="w5-theory">
+<section class="lesson-block"><h3>Client Side Rendering</h3><p>En un framework como React, el servidor entrega un HTML casi vacío y un bundle JS. El navegador descarga ese bundle, lo ejecuta y React construye el DOM completo en el cliente.</p>
+<div class="diagram"><p class="diagram-label">Diagrama · Client Side Rendering (CSR)</p>
+<p class="w1-flow-title">Flujo CSR</p>
+<div class="node-flow"><span class="n-blue"><b>Navegador</b>solicita HTML</span><i>→</i><span><b>Servidor</b>devuelve HTML vacío</span><i>→</i><span class="n-amber"><b>Descarga JS</b>bundle de la app</span><i>→</i><span class="n-green"><b>React monta</b>genera el DOM</span></div>
+<div class="pros-cons"><div class="pros"><b>Ventajas CSR</b><ul><li>Experiencia fluida (SPA)</li><li>Menos carga al servidor</li><li>Interactividad sin recargar la página</li></ul></div><div class="cons"><b>Desventajas CSR</b><ul><li>SEO más difícil</li><li>Carga inicial lenta</li><li>Requiere JS habilitado</li></ul></div></div>
+</div></section>
+
+<section class="lesson-block"><h3>Gestión de dependencias y herramientas</h3><p>Cada proyecto moderno usa un gestor de paquetes y una herramienta de build para compilar, empaquetar y servir la aplicación.</p>
+<div class="diagram"><p class="diagram-label">Diagrama · Herramientas de creación y gestión de proyectos</p>
+<div class="tool-grid">
+<div class="n-amber"><code>Vite</code><p>Bundler ultrarrápido con HMR. Recomendado para React, Vue y Svelte.</p></div>
+<div class="n-blue"><code>Create React App</code><p>CLI histórica de React, de configuración cero y más pesada. Hoy está deprecada: no se recomienda para proyectos nuevos.</p></div>
+<div><code>Next.js</code><p>Framework full-stack sobre React. SSR, SSG y rutas de API.</p></div>
+<div class="n-red"><code>npm / yarn / pnpm</code><p>Gestores de paquetes. Instalan y gestionan las dependencias del proyecto.</p></div>
+<div class="n-ink"><code>package.json</code><p>Manifiesto del proyecto: nombre, versión, scripts y dependencias.</p></div>
+<div class="n-purple"><code>node_modules</code><p>Carpeta donde se instalan todos los paquetes. No se sube al repositorio.</p></div>
+</div></div></section>
+
+<section class="lesson-block"><h3>Desarrollo basado en componentes</h3><p>Un componente es una función que recibe datos y retorna JSX. La interfaz se construye componiendo componentes pequeños y reutilizables en un árbol.</p>
+<div class="diagram"><p class="diagram-label">Diagrama · Árbol de componentes React</p>
+<div class="tree"><span class="n-ink">&lt;App /&gt;</span><i>↓</i><div class="t-row"><span class="n-blue">&lt;Navbar /&gt;</span><span class="n-purple">&lt;Main /&gt;</span><span class="n-amber">&lt;Footer /&gt;</span></div><i>↓</i><div class="t-row"><span>&lt;Hero /&gt;</span><span>&lt;Cards /&gt;</span></div><small>Cada nodo es un componente independiente y reutilizable</small></div>
+</div></section>
+
+<section class="lesson-block"><h3>JSX</h3><p>JSX es una extensión de sintaxis que permite escribir una estructura similar a HTML dentro de JavaScript. Babel o SWC lo compilan a llamadas <code>React.createElement</code>.</p>
+<div class="diagram"><p class="diagram-label">Diagrama · JSX — Sintaxis y reglas</p>
+<div class="code-pair"><div class="n-blue"><b>JSX (lo que escribes)</b><pre><code>function Card({ title }) {
+  return (
+    &lt;div className="card"&gt;
+      &lt;h2&gt;{title}&lt;/h2&gt;
+    &lt;/div&gt;
+  )
+}</code></pre></div><div><b>JS compilado (Babel/SWC)</b><pre><code>React.createElement(
+  "div",
+  { className: "card" },
+  React.createElement("h2", null, title)
+)</code></pre></div></div>
+<div class="rules">
+<div><b>Un solo elemento raíz</b><span class="ok">✓ &lt;&gt;&lt;div/&gt;&lt;div/&gt;&lt;/&gt;</span><span class="no">✗ &lt;div/&gt;&lt;div/&gt;</span></div>
+<div><b>className en vez de class</b><span class="ok">✓ className="btn"</span><span class="no">✗ class="btn"</span></div>
+<div><b>Etiquetas siempre cerradas</b><span class="ok">✓ &lt;img /&gt;</span><span class="no">✗ &lt;img&gt;</span></div>
+<div><b>JS entre llaves</b><span class="ok">✓ {variable}</span><span class="no">✗ variable</span></div>
+</div></div></section>
+
+<section class="lesson-block"><h3>Props y children</h3><p>Los datos fluyen de padre a hijo a través de <strong>props</strong>. <code>children</code> es la prop especial que recibe el contenido JSX anidado dentro de un componente.</p>
+<div class="diagram"><p class="diagram-label">Diagrama · Props y children</p>
+<div class="code-pair"><div class="n-blue"><b>Padre — envía props</b><pre><code>&lt;Button
+  label="Guardar"
+  color="green"
+  onClick={handleSave}
+&gt;
+  &lt;Icon name="save" /&gt;
+&lt;/Button&gt;</code></pre></div><div class="n-green"><b>Hijo — recibe props</b><pre><code>function Button({
+  label,
+  color,
+  onClick,
+  children
+}) {
+  return (
+    &lt;button style={{ color }}
+      onClick={onClick}&gt;
+      {children} {label}
+    &lt;/button&gt;
+  )
+}</code></pre></div></div>
+<div class="key-rule"><b>Regla clave</b><p>Las props fluyen de padre a hijo (unidireccional). El hijo nunca modifica sus props: son de solo lectura. <code>children</code> es la prop especial que contiene el contenido anidado.</p></div>
+</div></section>
+
+<section class="lesson-block"><h3>Estilos en React</h3><p>Existen varios enfoques para aplicar estilos en un proyecto React, cada uno con ventajas según el tamaño y las necesidades del proyecto.</p>
+<div class="diagram"><p class="diagram-label">Diagrama · Enfoques de estilos en React</p>
+<div class="style-cards">
+<div class="n-blue"><b>Inline styles</b><span class="ok">+ Valores dinámicos con JS</span><span class="no">− Sin pseudoclases ni media queries</span><pre><code>style={{ color: "red", fontSize: 14 }}</code></pre></div>
+<div class="n-amber"><b>CSS stylesheets</b><span class="ok">+ Familiar, soporte completo de CSS</span><span class="no">− Global: colisiones de nombres</span><pre><code>import './Button.css'</code></pre></div>
+<div class="n-green"><b>CSS Modules</b><span class="ok">+ Clases con alcance local automático</span><span class="no">− Nombres de clase generados</span><pre><code>import s from './Button.module.css'
+&lt;div className={s.btn}&gt;</code></pre></div>
+<div class="n-purple"><b>Styled Components</b><span class="ok">+ CSS-in-JS, props dinámicas</span><span class="no">− Costo en ejecución, dependencia extra</span><pre><code>const Btn = styled.button&#96;
+  color: red;
+&#96;</code></pre></div>
+<div class="n-red"><b>Framework CSS</b><span class="ok">+ Rápido, consistente, sin CSS propio</span><span class="no">− Clases extensas, curva de aprendizaje</span><pre><code>&lt;div className="flex gap-4 p-2"&gt;</code></pre></div>
+</div></div></section>
+</div>`;
+
+weeks[4].reflectionConfirmed = true;
+weeks[4].reflectionHtml = `<h3>¿Qué aprendí?</h3><p>Esta semana comprendí el cambio de paradigma que supone trabajar con un framework. Pasar de HTML estático a construir interfaces como árboles de componentes cambia completamente la forma de pensar el diseño. Props y children me resultaron intuitivos una vez que los practiqué. La idea de que los datos solo fluyen hacia abajo simplifica mucho el razonamiento sobre el código.</p><h3>¿Cómo lo aprendí?</h3><p>El laboratorio de pasar datos con props y children fue muy claro. Ver cómo el componente padre controla la información y el hijo solo la muestra me dejó bien grabado el concepto de flujo unidireccional.</p>`;
+
 // Semana 1: Fundamentos de Tecnologías Web.
 weeks[0].theory = `<div class="w1-theory">
 <section class="lesson-block"><h3>Soluciones web</h3>
