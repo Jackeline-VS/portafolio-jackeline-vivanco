@@ -42,14 +42,53 @@ return `<div class="visual cards-visual"><div class="visual-top"><b>EXPLORA.</b>
 document.querySelector('#projects').innerHTML=projects.map((p,i)=>`<article class="project"><div class="project-art" aria-hidden="true">${artwork(p,i)}<span class="visual-caption">COMPOSICIÓN ILUSTRATIVA · NO ES CAPTURA</span></div><div class="project-copy"><div class="project-heading"><span class="project-label">${p.label}</span><span class="project-index">0${i+1}</span></div><h3>${p.title}</h3><p>${p.desc}</p><div class="tags">${p.tags.map(t=>`<span>${t}</span>`).join('')}</div><a href="https://github.com/Jackeline-VS/${p.repo}" target="_blank" rel="noopener">Explorar código <span>↗</span></a></div></article>`).join('');
 document.querySelector('#weeks').innerHTML=weeks.map((w,i)=>`<button class="week" data-week="${i}" aria-haspopup="dialog"><span class="week-number">${String(i+1).padStart(2,'0')}</span><h3>${w.title}</h3><p>${w.sub}</p><span class="week-bottom"><span>${w.status||(i<=4?'PRÁCTICA DOCUMENTADA':i===5?'ENTREGA POR INCORPORAR':'EVIDENCIAS POR COMPLETAR')}</span><span>↗</span></span></button>`).join('');
 const dialog=document.querySelector('#week-dialog');let lastButton;
+const nbIcons = {
+  theory: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2zM22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg>',
+  lab: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6L4.5 19A1.5 1.5 0 0 0 5.8 21h12.4a1.5 1.5 0 0 0 1.3-2L14 9V3M7 15h10"/></svg>',
+  reflection: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>'
+};
 document.querySelectorAll('[data-week]').forEach(button => button.addEventListener('click', () => {
   lastButton = button;
-  const index = Number(button.dataset.week);
+  openWeek(Number(button.dataset.week));
+}));
+function openWeek(index) {
   const w = weeks[index];
+  const number = String(index + 1).padStart(2, '0');
   const theory = w.theory || `<h3>Temas y conceptos</h3><ul>${w.topics.map(text => `<li>${safe(text)}</li>`).join('')}</ul>`;
   const laboratory = w.labHtml || `<h3>Procedimiento</h3><ol>${w.procedure.map(text => `<li>${safe(text)}</li>`).join('')}</ol><h3>Laboratorio y resultados</h3><p>${safe(w.lab)}</p>${w.repo ? `<a class="lesson-repo" target="_blank" rel="noopener" href="https://github.com/Jackeline-VS/${w.repo}">Consultar el código en GitHub ↗</a>` : ''}<h3>Evidencias por incorporar</h3><div class="notice">Añadir capturas del resultado, código relevante e informe de la práctica. Los ejemplos de teoría son didácticos; no sustituyen las evidencias del laboratorio.</div>`;
   const reflection = w.reflectionHtml || `<h3>Preguntas para mi reflexión</h3><p>${safe(w.reflection)}</p><div class="notice">Completar con mi experiencia antes de la entrega.</div>`;
-  document.querySelector('#week-content').innerHTML = `<p class="eyebrow">CUADERNO / SEMANA 0${index + 1}</p><h2>${safe(w.title)}</h2><p class="lesson-subtitle">${safe(w.sub)}</p><div class="lesson-tabs" role="tablist" aria-label="Apartados de la semana"><button id="tab-theory" role="tab" aria-selected="true" aria-controls="panel-theory" tabindex="0">Teoría</button><button id="tab-lab" role="tab" aria-selected="false" aria-controls="panel-lab" tabindex="-1">Laboratorio</button><button id="tab-reflection" role="tab" aria-selected="false" aria-controls="panel-reflection" tabindex="-1">Reflexión</button></div><div id="panel-theory" class="lesson-panel" role="tabpanel" aria-labelledby="tab-theory" tabindex="0">${theory}</div><div id="panel-lab" class="lesson-panel" role="tabpanel" aria-labelledby="tab-lab" tabindex="0" hidden>${laboratory}</div><div id="panel-reflection" class="lesson-panel" role="tabpanel" aria-labelledby="tab-reflection" tabindex="0" hidden><div class="reflection-label">${w.reflectionConfirmed ? 'REFLEXIÓN PERSONAL' : 'REFLEXIÓN PERSONAL · BORRADOR PARA REVISIÓN'}</div>${reflection}</div><div class="lesson-footnote">Organizado a partir del sílabo IS093A y del material compartido. Revisar los resultados y la reflexión personal antes de la entrega.</div>`;
+  const isDark = document.documentElement.dataset.theme === 'dark';
+  document.querySelector('#week-content').innerHTML = `
+  <div class="nb-top">
+    <button class="brand nb-brand" data-close aria-label="Volver al portafolio">JV<span>.</span></button>
+    <div class="nb-top-actions">
+      <button class="nb-pill" data-close>${nbIcons.theory} Cuaderno</button>
+      <button class="nb-theme" aria-label="${isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}">${isDark ? '☀' : '☾'}</button>
+    </div>
+  </div>
+  <div class="nb-wrap">
+    <nav class="nb-crumbs" aria-label="Ruta"><button data-close>Semanas</button><span>/</span><b>Semana ${index + 1}</b></nav>
+    <div class="nb-head">
+      <div><p class="nb-eyebrow">CUADERNO DE CLASES</p><h2>Semana ${index + 1}</h2><p class="nb-sub">${safe(w.title)} · ${safe(w.sub)}</p></div>
+      <div class="nb-arrows"><button data-go="${index - 1}" aria-label="Semana anterior" ${index === 0 ? 'disabled' : ''}>←</button><button data-go="${index + 1}" aria-label="Semana siguiente" ${index === weeks.length - 1 ? 'disabled' : ''}>→</button></div>
+    </div>
+    <div class="lesson-tabs" role="tablist" aria-label="Apartados de la semana"><button id="tab-theory" role="tab" aria-selected="true" aria-controls="panel-theory" tabindex="0">${nbIcons.theory} Teoría</button><button id="tab-lab" role="tab" aria-selected="false" aria-controls="panel-lab" tabindex="-1">${nbIcons.lab} Ejercicios de laboratorio</button><button id="tab-reflection" role="tab" aria-selected="false" aria-controls="panel-reflection" tabindex="-1">${nbIcons.reflection} Reflexión</button></div>
+    <div class="nb-panel">
+      <div id="panel-theory" class="lesson-panel" role="tabpanel" aria-labelledby="tab-theory" tabindex="0"><p class="nb-panel-label">${nbIcons.theory} TEORÍA</p><h3 class="nb-panel-title">${safe(w.title)}</h3>${theory}</div>
+      <div id="panel-lab" class="lesson-panel" role="tabpanel" aria-labelledby="tab-lab" tabindex="0" hidden><p class="nb-panel-label">${nbIcons.lab} EJERCICIOS DE LABORATORIO</p>${laboratory}</div>
+      <div id="panel-reflection" class="lesson-panel" role="tabpanel" aria-labelledby="tab-reflection" tabindex="0" hidden><p class="nb-panel-label">${nbIcons.reflection} REFLEXIÓN</p><div class="reflection-label">${w.reflectionConfirmed ? 'REFLEXIÓN PERSONAL' : 'REFLEXIÓN PERSONAL · BORRADOR PARA REVISIÓN'}</div>${reflection}</div>
+    </div>
+    <div class="lesson-footnote">Organizado a partir del sílabo IS093A y del material compartido. Revisar los resultados y la reflexión personal antes de la entrega.</div>
+  </div>`;
+  document.querySelectorAll('#week-content [data-close]').forEach(el => el.addEventListener('click', () => dialog.close()));
+  document.querySelectorAll('#week-content [data-go]').forEach(el => el.addEventListener('click', () => openWeek(Number(el.dataset.go))));
+  const nbTheme = document.querySelector('.nb-theme');
+  nbTheme.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    nbTheme.textContent = next === 'dark' ? '☀' : '☾';
+    nbTheme.setAttribute('aria-label', next === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+  });
   const tabs = [...document.querySelectorAll('.lesson-tabs [role="tab"]')];
   function activate(tab, focus = false) {
     tabs.forEach(item => {
@@ -71,10 +110,11 @@ document.querySelectorAll('[data-week]').forEach(button => button.addEventListen
       if (next !== undefined) { event.preventDefault(); activate(tabs[next], true); }
     });
   });
-  dialog.showModal();
+  if (!dialog.open) dialog.showModal();
   dialog.scrollTop = 0;
-}));
-document.querySelector('.close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});dialog.addEventListener('close',()=>lastButton?.focus());
+  document.querySelector('#tab-theory').focus({ preventScroll: true });
+}
+document.querySelector('.close').addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>lastButton?.focus());
 const theme=document.querySelector('#theme');function setTheme(t){document.documentElement.dataset.theme=t;theme.textContent=t==='dark'?'☀':'☾';theme.setAttribute('aria-label',t==='dark'?'Cambiar a modo claro':'Cambiar a modo oscuro');try{localStorage.setItem('jv-theme',t)}catch{}}let saved;try{saved=localStorage.getItem('jv-theme')}catch{}setTheme(saved==='light'?'light':'dark');theme.addEventListener('click',()=>setTheme(document.documentElement.dataset.theme==='dark'?'light':'dark'));
 
 // Menú activo: marca el apartado según la sección visible al desplazarse
