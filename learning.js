@@ -8,6 +8,101 @@ lessonUpdates.forEach(item => {
 
 weeks[0].labHtml = `<h3>Práctica Semana 01 · Mi primera página de presentación</h3><p>Elaboré una página personal con mi nombre, fotografía, formación en Ingeniería de Sistemas e interés por el frontend. La página reúne enlaces a GitHub, LinkedIn y correo, y se visualizó en el navegador mediante Live Server.</p><h3>Desarrollo de la actividad</h3><ol><li>Organicé el contenido de mi presentación en HTML y trabajé el diseño de la página.</li><li>Utilicé Visual Studio Code y previsualicé el resultado con Live Server.</li><li>Vinculé el trabajo con mi repositorio de GitHub.</li><li>Documenté el resultado y respondí una pregunta sobre la diferencia entre sitio web y aplicación web.</li></ol><h3>Resultado y evidencia</h3><p>La práctica documenta una tarjeta de presentación con fotografía, descripción personal y enlaces. El informe incluye el repositorio y una captura de la página funcionando en el navegador.</p><div class="actions"><a class="primary" href="assets/Practica01_JackelineVivanco.pdf" target="_blank" rel="noopener">Abrir informe PDF ↗</a><a class="lesson-repo" href="assets/Practica01_JackelineVivanco.pdf" download>Descargar informe</a><a class="lesson-repo" href="https://github.com/Jackeline-VS/portafolio-web-uncp" target="_blank" rel="noopener">Ver repositorio ↗</a></div><figure class="practice-evidence"><a href="assets/practica01-preview.png" target="_blank" rel="noopener"><img src="assets/practica01-preview.png" alt="Primera página del informe de Jackeline: datos de la práctica y captura de su página personal" loading="lazy"></a><figcaption>Evidencia del informe original · Semana 1. Pulsa la imagen para ampliarla.</figcaption></figure><h3>Respuesta conceptual</h3><p>Un sitio web suele reunir páginas orientadas a presentar información. Una aplicación web permite realizar tareas mediante interacción y procesamiento de datos. Ambos conceptos pueden coincidir: un sitio puede incorporar funciones de aplicación.</p>`;
 weeks[0].reflectionConfirmed = true;
+
+// Semana 1: Fundamentos de Tecnologías Web.
+weeks[0].theory = `<div class="w1-theory">
+<section class="lesson-block"><h3>Soluciones web</h3>
+<div class="w1-cols">
+<div class="w1-card"><b>Sistema web</b><p>Plataforma en servidor accesible desde el navegador.</p><small>Ej.: sistema de matrícula, ERP</small></div>
+<div class="w1-card"><b>Aplicación web</b><p>Software interactivo con lógica propia, sin instalar nada.</p><small>Ej.: Gmail, Figma</small></div>
+<div class="w1-card"><b>Sitio web</b><p>Páginas informativas bajo un dominio.</p><small>Ej.: Wikipedia</small></div>
+<div class="w1-card"><b>Página web</b><p>Documento HTML único. Bloque básico de la web.</p><small>Ej.: una página de inicio</small></div>
+</div></section>
+
+<section class="lesson-block"><h3>Tecnologías web</h3>
+<div class="w1-cols">
+<div class="w1-card"><b>Frontend</b><ul><li><strong>HTML</strong>: estructura y semántica del contenido (HTML5).</li><li><strong>CSS</strong>: presentación visual — colores, tipografías y layouts responsivos (CSS3).</li><li><strong>JavaScript</strong>: interactividad, manipulación del DOM y comunicación asíncrona (Fetch API).</li></ul></div>
+<div class="w1-card"><b>Backend</b><ul><li><strong>PHP</strong>: WordPress y sistemas legacy.</li><li><strong>Python</strong>: Django, FastAPI.</li><li><strong>Java</strong>: sistemas empresariales (Spring Boot).</li><li><strong>Node.js</strong>: JavaScript en el servidor, alta concurrencia.</li></ul></div>
+<div class="w1-card"><b>Tecnologías gráficas</b><ul><li><strong>SVG</strong>: vectores XML escalables sin pérdida de calidad.</li><li><strong>Canvas 2D</strong>: dibujo píxel a píxel con JavaScript.</li><li><strong>WebGL</strong>: gráficos 3D en el navegador (OpenGL ES).</li></ul></div>
+</div>
+<p class="diagram-label">Diagrama · Stack web básico</p>
+<div class="w1-stack"><div><b>JavaScript</b><span>Comportamiento e interactividad</span></div><div><b>CSS</b><span>Presentación y estilos visuales</span></div><div><b>HTML</b><span>Estructura y contenido semántico</span></div></div>
+<p class="small">Las capas se construyen una sobre otra.</p></section>
+
+<section class="lesson-block"><h3>Protocolos de la web · Modelo TCP/IP</h3><p>Organiza la comunicación en cuatro capas independientes.</p>
+<p class="diagram-label">Diagrama · Modelo TCP/IP — 4 capas</p>
+<div class="w1-layers">
+<div><i>4</i><div><b>Aplicación</b><p>Protocolos que usan las aplicaciones directamente.</p></div><code>HTTP · HTTPS · FTP · DNS · SMTP</code></div>
+<div><i>3</i><div><b>Transporte</b><p>Comunicación extremo a extremo entre procesos. TCP es fiable (handshake SYN → SYN-ACK → ACK); UDP es rápido, sin verificación.</p></div><code>TCP · UDP</code></div>
+<div><i>2</i><div><b>Internet</b><p>Enrutamiento de paquetes mediante direcciones IP.</p></div><code>IPv4 (32 bits) · IPv6 (128 bits)</code></div>
+<div><i>1</i><div><b>Acceso a red</b><p>Transmisión física de bits por el medio.</p></div><code>Ethernet · Wi-Fi · Fibra óptica</code></div>
+</div></section>
+
+<section class="lesson-block"><h3>DNS · Domain Name System</h3><p>Traduce nombres de dominio a direcciones IP de forma jerárquica y distribuida.</p>
+<p class="diagram-label">Diagrama · Resolución DNS paso a paso</p>
+<ol class="w1-steps">
+<li><b>Caché local</b><span>Navegador / sistema operativo</span></li>
+<li><b>Resolver recursivo</b><span>ISP del usuario</span></li>
+<li><b>Root nameserver</b><span>13 servidores — ICANN</span></li>
+<li><b>TLD nameserver</b><span>.com · .pe · .org</span></li>
+<li><b>Authoritative NS</b><span>Dominio específico</span></li>
+<li><b>Dirección IP</b><span>Devuelta al navegador</span></li>
+</ol></section>
+
+<section class="lesson-block"><h3>HTTP / HTTPS</h3><p>Protocolo de petición-respuesta sin estado entre cliente y servidor. HTTPS añade cifrado TLS con un certificado digital emitido por una autoridad certificadora (CA).</p>
+<p class="diagram-label">Diagrama · Flujo DNS + HTTP</p>
+<p class="w1-flow-title">1. Resolución DNS</p>
+<div class="hook-flow"><span><b>Navegador</b><br>google.com</span><i>→</i><span><b>Servidor DNS</b><br>traduce</span><i>→</i><span><b>Servidor web</b><br>142.250.x.x</span></div>
+<p class="w1-flow-title">2. Petición HTTP / respuesta</p>
+<div class="hook-flow"><span><b>Cliente</b><br>GET /</span><i>⇄</i><span><b>HTTPS / TLS</b><br>cifrado</span><i>⇄</i><span><b>Servidor</b><br>200 OK</span></div>
+
+<h4>Métodos HTTP</h4><p>Definen la acción que el cliente quiere realizar sobre un recurso del servidor.</p>
+<p class="diagram-label">Diagrama · Métodos HTTP</p>
+<div class="w1-methods">
+<div class="get"><code>GET</code><b>Solicitar recurso</b><span>Ej.: ver una página</span><small>Solo lectura</small></div>
+<div class="post"><code>POST</code><b>Crear nuevo recurso</b><span>Ej.: formulario de registro</span><small>Crea</small></div>
+<div class="put"><code>PUT</code><b>Reemplazar recurso completo</b><span>Ej.: actualizar perfil</span><small>Reemplaza</small></div>
+<div class="patch"><code>PATCH</code><b>Actualizar parcialmente</b><span>Ej.: cambiar email</span><small>Modifica</small></div>
+<div class="delete"><code>DELETE</code><b>Eliminar recurso</b><span>Ej.: borrar cuenta</span><small>Elimina</small></div>
+</div>
+
+<h4>Códigos de estado</h4><p>El servidor responde con un número que indica el resultado de la petición. Se agrupan por rango.</p>
+<p class="diagram-label">Diagrama · Códigos de estado HTTP</p>
+<div class="w1-status">
+<div class="s2"><h5>2xx · Éxito</h5><p><code>200</code> OK — solicitud exitosa</p><p><code>201</code> Created — recurso creado (POST)</p></div>
+<div class="s3"><h5>3xx · Redirección</h5><p><code>301</code> Moved Permanently — redirección permanente</p></div>
+<div class="s4"><h5>4xx · Error del cliente</h5><p><code>400</code> Bad Request — solicitud mal formada</p><p><code>401</code> Unauthorized — requiere autenticación</p><p><code>403</code> Forbidden — sin permiso de acceso</p><p><code>404</code> Not Found — recurso no encontrado</p></div>
+<div class="s5"><h5>5xx · Error del servidor</h5><p><code>500</code> Internal Server Error — error inesperado en el servidor</p></div>
+</div></section>
+
+<section class="lesson-block"><h3>Roles en el desarrollo web</h3><p>Según la parte del sistema en que trabajan, los desarrolladores se clasifican en tres perfiles.</p>
+<p class="diagram-label">Diagrama · Roles del desarrollador</p>
+<div class="w1-cols">
+<div class="w1-card"><b>Frontend</b><p>Interfaz visual que ve el usuario.</p><small>HTML · CSS · JS · React</small></div>
+<div class="w1-card"><b>Backend</b><p>Servidor, lógica y base de datos.</p><small>Node.js · Python · MySQL</small></div>
+<div class="w1-card"><b>Fullstack</b><p>Domina cliente y servidor.</p><small>Frontend + Backend</small></div>
+</div></section>
+
+<section class="lesson-block"><h3>Visual Studio Code</h3><p>Editor más usado en la industria: 73 % de los desarrolladores (Stack Overflow, 2023). Gratuito, open source y extensible.</p>
+<h4>Extensiones</h4>
+<div class="theory-table"><table><thead><tr><th>Extensión</th><th>Para qué sirve</th></tr></thead><tbody>
+<tr><td>Prettier</td><td>Formatea el código al guardar.</td></tr>
+<tr><td>ESLint</td><td>Detecta errores en JS/TS en tiempo real.</td></tr>
+<tr><td>Live Server</td><td>Servidor local con recarga automática.</td></tr>
+<tr><td>Auto Rename Tag</td><td>Renombra las etiquetas HTML en par.</td></tr>
+<tr><td>Path Intellisense</td><td>Autocompletado de rutas en imports.</td></tr>
+</tbody></table></div>
+<p class="diagram-label">Diagrama · Atajos esenciales de VS Code</p>
+<div class="w1-keys">
+<div><span><kbd>Ctrl</kbd><kbd>P</kbd></span><p>Abrir archivo por nombre</p></div>
+<div><span><kbd>Ctrl</kbd><kbd>⇧</kbd><kbd>P</kbd></span><p>Paleta de comandos</p></div>
+<div><span><kbd>Ctrl</kbd><kbd>/</kbd></span><p>Comentar / descomentar</p></div>
+<div><span><kbd>Alt</kbd><kbd>Z</kbd></span><p>Ajuste de línea automático</p></div>
+<div><span><kbd>Alt</kbd><kbd>↑ / ↓</kbd></span><p>Mover línea arriba o abajo</p></div>
+<div><span><kbd>Ctrl</kbd><kbd>D</kbd></span><p>Seleccionar siguiente ocurrencia</p></div>
+<div><span><kbd>Ctrl</kbd><kbd>⇧</kbd><kbd>L</kbd></span><p>Seleccionar todas las ocurrencias</p></div>
+</div></section>
+</div>`;
 weeks[0].reflectionHtml = `<h3>¿Qué aprendí?</h3><p>Aprendí a distinguir sistema web, aplicación web, sitio web y página web. También comprendí cómo intervienen DNS, IP, TCP y HTTP al acceder a un recurso web, y para qué sirven los métodos HTTP y los códigos de estado.</p><h3>¿Cómo lo aprendí?</h3><p>Mediante diagramas, analogías y la práctica de mi primera página personal. Configurar Visual Studio Code, utilizar Live Server y practicar los atajos me ayudó a organizar el trabajo y comprobar los cambios en el navegador.</p>`;
 
 // Evidencias originales recibidas para las semanas 2 y 3.
