@@ -51,6 +51,40 @@ document.querySelectorAll('[data-week]').forEach(button => button.addEventListen
   lastButton = button;
   openWeek(Number(button.dataset.week));
 }));
+// Da el mismo diseño a la teoría de todas las semanas: diagramas y tablas en paneles, y colores en secuencia
+function enhanceTheory(panel) {
+  const headingFor = el => {
+    for (let prev = el.previousElementSibling; prev; prev = prev.previousElementSibling) {
+      if (prev.matches('h3, h4')) return prev.textContent.trim();
+    }
+    return el.closest('.lesson-block')?.querySelector('h3')?.textContent.trim() || 'Resumen';
+  };
+  const wrap = (el, labelText) => {
+    const box = document.createElement('div');
+    box.className = 'diagram';
+    el.before(box);
+    if (labelText) box.insertAdjacentHTML('beforeend', `<p class="diagram-label">${safe(labelText)}</p>`);
+    return box;
+  };
+  panel.querySelectorAll('.diagram-label').forEach(label => {
+    if (label.closest('.diagram')) return;
+    const box = wrap(label);
+    box.append(label);
+    let next = box.nextElementSibling;
+    while (next && !next.matches('h3, h4, h5, .diagram-label, .diagram, section') && !(next.tagName === 'P' && !next.matches('.small, .w1-flow-title'))) {
+      const following = next.nextElementSibling;
+      box.append(next);
+      next = following;
+    }
+  });
+  panel.querySelectorAll('.theory-table').forEach(table => {
+    if (!table.closest('.diagram')) wrap(table, 'Tabla · ' + headingFor(table)).append(table);
+  });
+  panel.querySelectorAll('.dom-visual, .flex-demo, .grid-demo, .breakpoints, .bootstrap-demo, .concept-flow').forEach(el => {
+    if (!el.closest('.diagram')) wrap(el, 'Diagrama · ' + headingFor(el)).append(el);
+  });
+  panel.querySelectorAll('.hook-grid, .hook-cards, .hook-flow, .w1-cols, .w1-layers, .w1-steps, .w1-keys, .w1-stack, .flex-demo, .grid-demo, .breakpoints, .concept-flow, .dom-visual > div, .bootstrap-demo > div').forEach(el => el.classList.add('cyc'));
+}
 function openWeek(index) {
   const w = weeks[index];
   const number = String(index + 1).padStart(2, '0');
@@ -80,6 +114,7 @@ function openWeek(index) {
     </div>
     <div class="lesson-footnote">Organizado a partir del sílabo IS093A y del material compartido. Revisar los resultados y la reflexión personal antes de la entrega.</div>
   </div>`;
+  enhanceTheory(document.querySelector('#panel-theory'));
   document.querySelectorAll('#week-content [data-close]').forEach(el => el.addEventListener('click', () => dialog.close()));
   document.querySelectorAll('#week-content [data-go]').forEach(el => el.addEventListener('click', () => openWeek(Number(el.dataset.go))));
   const nbTheme = document.querySelector('.nb-theme');

@@ -385,3 +385,29 @@ html[data-theme=light] #week-dialog .lesson-tabs button[aria-selected=true]{back
 .nb-panel-title{font-family:var(--display);font-size:24px!important;color:var(--gold);margin:0 0 22px!important;border:0!important;padding:0!important}
 #week-dialog .lesson-footnote{margin-top:24px}
 @media(max-width:600px){.nb-wrap{padding-top:28px}.nb-panel{padding:20px 16px}.nb-head{flex-direction:column;align-items:flex-start}.nb-pill{padding:7px 12px}#week-dialog .lesson-tabs button{flex:1;justify-content:center;padding:9px 10px;font-size:12px}}
+
+/* Teoría unificada: misma paleta de colores en todas las semanas */
+:root{--c1:#60a5fa;--c2:#c084fc;--c3:#4ade80;--c4:#fbbf24;--c5:#fb923c;--c6:#f472b6;--c7:#f87171}
+html[data-theme=light]{--c1:#2563eb;--c2:#9333ea;--c3:#16a34a;--c4:#b45309;--c5:#c2410c;--c6:#db2777;--c7:#dc2626}
+.n-blue{--n:var(--c1)}.n-purple{--n:var(--c2)}.n-green{--n:var(--c3)}.n-amber{--n:var(--c4)}.n-red{--n:var(--c7)}
+.diagram [class*="n-"]{background:color-mix(in srgb,var(--n) 7%,var(--panel))}
+.diagram [class*="n-"]>:is(code,b):first-child{color:var(--n)!important}
+#week-dialog .diagram{background:var(--bg)}
+#week-dialog .diagram-label{color:var(--gold)!important;letter-spacing:.16em}
+#week-dialog .lesson-panel h3:not(.nb-panel-title){border:0;border-bottom:1px solid var(--line);padding:0 0 10px;margin:34px 0 14px;font-size:17px;color:var(--ink)}
+#week-dialog .lesson-panel .nb-panel-title+* h3:first-child,#week-dialog .lesson-panel .nb-panel-title+h3{margin-top:0}
+
+/* Secuencia de colores en tarjetas y nodos */
+.cyc>:nth-child(7n+1){--n:var(--c1)}.cyc>:nth-child(7n+2){--n:var(--c2)}.cyc>:nth-child(7n+3){--n:var(--c3)}.cyc>:nth-child(7n+4){--n:var(--c4)}.cyc>:nth-child(7n+5){--n:var(--c5)}.cyc>:nth-child(7n+6){--n:var(--c6)}.cyc>:nth-child(7n+7){--n:var(--c7)}
+.cyc>:not(i){border:1.5px solid color-mix(in srgb,var(--n) 60%,transparent)!important;background:color-mix(in srgb,var(--n) 7%,var(--panel))!important;border-radius:10px}
+.cyc>:not(i)>:is(code,b,strong):first-child,.cyc>span{color:var(--n)!important}
+.cyc>i{color:var(--muted)}
+.w1-layers.cyc i{background:var(--n);color:var(--bg)}
+.w1-steps.cyc li::before{border-color:var(--n);color:var(--n)}
+.w1-steps.cyc li>b{color:var(--n)!important}
+
+/* Resumen de hooks como filas */
+#week-dialog .hook-grid{grid-template-columns:1fr;gap:8px}
+#week-dialog .hook-grid>div{display:grid;grid-template-columns:150px 1fr;align-items:center;gap:12px;padding:10px 16px}
+#week-dialog .hook-grid code{margin:0;font-weight:700}
+@media(max-width:520px){#week-dialog .hook-grid>div{grid-template-columns:1fr;gap:2px}}
